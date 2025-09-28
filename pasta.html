@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rigatoni</title>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --bg-color: #0e0e0e;
-      --card-color: #1a1a1a;
+      --card-color: rgba(26, 26, 26, 0.7);
       --text-color: #f0f0f0;
-      --accent: #ff4f4f;
+      --accent: #ff9900;
       --radius: 12px;
     }
 
@@ -24,15 +25,35 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, #ffffff10 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, #ffffff08 0%, transparent 50%);
+      animation: pulse 8s infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.05); opacity: 0.8; }
     }
 
     .card {
+      position: relative;
       background: var(--card-color);
+      backdrop-filter: blur(12px);
       padding: 2rem;
       border-radius: var(--radius);
       text-align: center;
       width: 320px;
       box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      z-index: 1;
     }
 
     .profile-pic {
@@ -71,22 +92,35 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1rem;
     }
 
     .links button:hover {
-      background: #ff2f2f;
+      background: #ff7700;
     }
 
     footer {
       margin-top: 2rem;
       font-size: 0.8rem;
       opacity: 0.6;
+      z-index: 1;
     }
 
-    .toast {
+    .toast-container {
       position: fixed;
       bottom: 20px;
       right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 9999;
+    }
+
+    .toast {
       background: #222;
       color: #fff;
       padding: 1rem 1.2rem;
@@ -97,7 +131,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 9999;
+      position: relative;
     }
 
     .toast.show {
@@ -122,31 +156,31 @@
 </head>
 <body>
   <div class="card">
-    <img src="profile.jpg" alt="Profile Picture" class="profile-pic" />
-    <h1>Rigatoni</h1>
-    <p>Modular mythmaker. Architect of remixable systems. Building clarity through creative code.</p>
+    <img src="profile.png" alt="Profile Picture" class="profile-pic" />
+    <h1>rigatoni <font color="#888888">(534)</font></h1>
+    <p>I do silly little stuff. I felt like being important so I made a page.</p>
     <div class="links">
-      <button onclick="copyUsername('rigatoni#0001')">Discord</button>
-      <button onclick="copyUsername('@rigatoni')">GitHub</button>
-      <button onclick="copyUsername('rigatoni.dev')">Website</button>
-      <button onclick="copyUsername('rigatoni@proton.me')">Email</button>
-      <button onclick="copyUsername('rigatoni.eth')">ENS</button>
+      <button onclick="copyUsername('ri.gatoni')"><i class="fab fa-discord"></i> Discord</button>
+      <button onclick="copyUsername('@rigatoni534')"><i class="fab fa-github"></i> GitHub</button>
+      <button onclick="copyUsername('TowerTurnstile')"><i class="fas fa-cube"></i> Roblox</button>
+      <button onclick="copyUsername('contact.rigatoni534@gmail.com')"><i class="fas fa-envelope"></i> Email</button>
+      <button onclick="copyUsername('Yay, Toast!')"><i class="fas fa-smile"></i> Dopamine</button>
     </div>
   </div>
   <footer>Github Pages • ri.gatoni</footer>
 
-  <div id="toast" class="toast">
-    Copied to clipboard
-    <div class="toast-bar"></div>
-  </div>
+  <div class="toast-container" id="toast-container"></div>
 
   <script>
     function copyUsername(text) {
       navigator.clipboard.writeText(text).then(() => {
-        const toast = document.getElementById('toast');
-        toast.classList.add('show');
-        toast.firstChild.textContent = `Copied: ${text}`;
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast show';
+        toast.innerHTML = `Copied: ${text}<div class="toast-bar"></div>`;
+        container.appendChild(toast);
 
+        // Reset animation
         const bar = toast.querySelector('.toast-bar');
         bar.style.animation = 'none';
         bar.offsetHeight; // trigger reflow
@@ -154,6 +188,7 @@
 
         setTimeout(() => {
           toast.classList.remove('show');
+          setTimeout(() => container.removeChild(toast), 300);
         }, 3000);
       });
     }
