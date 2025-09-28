@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rigatoni</title>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     :root {
       --bg-color: #0e0e0e;
-      --card-color: rgba(26, 26, 26, 0.7);
+      --card-color: rgba(26, 26, 26, 0.6);
       --text-color: #f0f0f0;
-      --accent: #ff9900;
-      --radius: 12px;
+      --accent: #ff4f4f;
+      --radius: 14px;
     }
 
     body {
@@ -25,50 +24,71 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
+    }
+
+    /* Glowing background shapes */
+    body::before, body::after {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,79,79,0.25) 0%, transparent 70%);
+      filter: blur(120px);
+      animation: float 12s infinite alternate;
     }
 
     body::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 30%, #ffffff10 0%, transparent 40%),
-                  radial-gradient(circle at 80% 70%, #ffffff08 0%, transparent 50%);
-      animation: pulse 8s infinite alternate;
-      z-index: 0;
+      top: -200px;
+      left: -200px;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(1.05); opacity: 0.8; }
+    body::after {
+      bottom: -200px;
+      right: -200px;
+      animation-delay: 6s;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0) scale(1); }
+      to { transform: translateY(30px) scale(1.05); }
     }
 
     .card {
       position: relative;
       background: var(--card-color);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       padding: 2rem;
       border-radius: var(--radius);
       text-align: center;
-      width: 320px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      width: 340px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
       z-index: 1;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .profile-pic {
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       background: #333;
       margin: 0 auto 1rem;
       object-fit: cover;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
     }
 
     h1 {
       margin: 0.5rem 0;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-family: 'Google Sans', sans-serif;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 0.3rem 0.6rem;
+      border-radius: var(--radius);
+      display: inline-block;
     }
 
     p {
@@ -79,28 +99,34 @@
 
     .links {
       display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
+      justify-content: center;
+      gap: 0.8rem;
     }
 
-    .links button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.6rem;
-      border-radius: var(--radius);
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
+    .icon-btn {
+      width: 52px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      font-size: 1rem;
+      border-radius: var(--radius);
+      background: var(--card-color);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .links button:hover {
-      background: #ff7700;
+    .icon-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--accent);
+    }
+
+    .icon-btn svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--text-color);
     }
 
     footer {
@@ -110,6 +136,7 @@
       z-index: 1;
     }
 
+    /* Toast notifications */
     .toast-container {
       position: fixed;
       bottom: 20px;
@@ -121,7 +148,7 @@
     }
 
     .toast {
-      background: #222;
+      background: rgba(20,20,20,0.9);
       color: #fff;
       padding: 1rem 1.2rem;
       border-radius: 8px;
@@ -157,14 +184,28 @@
 <body>
   <div class="card">
     <img src="https://rigatoni534.github.io/rigatoni/rigatoni.png" alt="Profile Picture" class="profile-pic" />
-    <h1>rigatoni <font color="#888888">(534)</font></h1>
+    <h1>rigatoni <span style="color:#888">(534)</span></h1>
     <p>I do silly little stuff. I felt like being important so I made a page.</p>
     <div class="links">
-      <button onclick="copyUsername('ri.gatoni')"><i class="fab fa-discord"></i> Discord</button>
-      <button onclick="copyUsername('@rigatoni534')"><i class="fab fa-github"></i> GitHub</button>
-      <button onclick="copyUsername('TowerTurnstile')"><i class="fas fa-cube"></i> Roblox</button>
-      <button onclick="copyUsername('contact.rigatoni534@gmail.com')"><i class="fas fa-envelope"></i> Email</button>
-      <button onclick="copyUsername('Yay, Toast!')"><i class="fas fa-smile"></i> Dopamine</button>
+      <button class="icon-btn" onclick="copyUsername('ri.gatoni')" title="Discord">
+        <!-- Discord Icon -->
+        <svg role="img" viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 0 0-4.8851-1.5152.0741.0741 0 0 0-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 0 0-.0785-.037 19.7363 19.7363 0 0 0-4.8852 1.515.0699.0699 0 0 0-.0321.0277C2.2418 9.0458 1.3842 13.5799 1.639 18.057c0 .0125.006.0247.016.0324a19.9247 19.9247 0 0 0 5.9932 3.0319.0777.0777 0 0 0 .0842-.0277c.4616-.6304.8731-1.2952 1.226-1.9943a.076.076 0 0 0-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 0 1-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 0 1 .0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 0 1 .0785.0095c.1202.099.246.1981.3727.2924a.077.077 0 0 1-.0066.1276c-.598.3516-1.2196.6431-1.872.8913a.077.077 0 0 0-.0417.1067c.3608.6981.7723 1.3628 1.225 1.9932a.076.076 0 0 0 .0842.0286 19.9412 19.9412 0 0 0 6.0021-3.0319.077.077 0 0 0 .016-.0324c.5-8.198-.8382-12.6972-3.5485-15.6594a.061.061 0 0 0-.0318-.0286z"/></svg>
+      </button>
+
+      <button class="icon-btn" onclick="copyUsername('@rigatoni534')" title="GitHub">
+        <!-- GitHub Icon -->
+        <svg role="img" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303..."/></svg>
+      </button>
+
+      <button class="icon-btn" onclick="copyUsername('TowerTurnstile')" title="Roblox">
+        <!-- Roblox Icon -->
+        <svg role="img" viewBox="0 0 24 24"><path d="M4.5 0L0 19.5 19.5 24 24 4.5 4.5 0zm7.5 6.75l5.25 1.5-1.5 5.25-5.25-1.5 1.5-5.25z"/></svg>
+      </button>
+
+      <button class="icon-btn" onclick="copyUsername('contact.rigatoni534@gmail.com')" title="Email">
+        <!-- Email Icon -->
+        <svg role="img" viewBox="0 0 24 24"><path d="M12 13.065l-11.938-7.16v13.312c0 1.105.895 2 2 2h19.876c1.105 0 2-.895 2-2V5.905l-11.938 7.16zM12 10.935l11.938-7.16H.062l11.938 7.16z"/></svg>
+      </button>
     </div>
   </div>
   <footer>Github Pages • ri.gatoni</footer>
