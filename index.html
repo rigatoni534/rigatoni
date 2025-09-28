@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0e0e0e;
+      --card-color: #1a1a1a;
+      --text-color: #f0f0f0;
+      --accent: #ff4f4f;
+      --radius: 12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Roboto Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Google Sans', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .nav-button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius);
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .nav-button:hover {
+      background: #ff2f2f;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>welcome to my site</h1>
+  <button class="nav-button" onclick="location.href='pasta.html'">go to about me</button>
+  <footer>Github Pages • ri.gatoni</footer>
+</body>
+</html>
