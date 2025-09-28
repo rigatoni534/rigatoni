@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rigatoni</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0e0e0e;
+      --card-color: #1a1a1a;
+      --text-color: #f0f0f0;
+      --accent: #ff4f4f;
+      --radius: 12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Roboto Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: var(--card-color);
+      padding: 2rem;
+      border-radius: var(--radius);
+      text-align: center;
+      width: 320px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    .profile-pic {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #333;
+      margin: 0 auto 1rem;
+      object-fit: cover;
+    }
+
+    h1 {
+      margin: 0.5rem 0;
+      font-size: 1.5rem;
+      font-family: 'Google Sans', sans-serif;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .links button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.6rem;
+      border-radius: var(--radius);
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .links button:hover {
+      background: #ff2f2f;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      opacity: 0.6;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #222;
+      color: #fff;
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: 'Roboto Mono', monospace;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .toast-bar {
+      margin-top: 0.5rem;
+      height: 4px;
+      background: var(--accent);
+      width: 100%;
+      transform-origin: left;
+      animation: shrink 3s linear forwards;
+    }
+
+    @keyframes shrink {
+      from { transform: scaleX(1); }
+      to { transform: scaleX(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="profile.jpg" alt="Profile Picture" class="profile-pic" />
+    <h1>Rigatoni</h1>
+    <p>Modular mythmaker. Architect of remixable systems. Building clarity through creative code.</p>
+    <div class="links">
+      <button onclick="copyUsername('rigatoni#0001')">Discord</button>
+      <button onclick="copyUsername('@rigatoni')">GitHub</button>
+      <button onclick="copyUsername('rigatoni.dev')">Website</button>
+      <button onclick="copyUsername('rigatoni@proton.me')">Email</button>
+      <button onclick="copyUsername('rigatoni.eth')">ENS</button>
+    </div>
+  </div>
+  <footer>Github Pages • ri.gatoni</footer>
+
+  <div id="toast" class="toast">
+    Copied to clipboard
+    <div class="toast-bar"></div>
+  </div>
+
+  <script>
+    function copyUsername(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        toast.firstChild.textContent = `Copied: ${text}`;
+
+        const bar = toast.querySelector('.toast-bar');
+        bar.style.animation = 'none';
+        bar.offsetHeight; // trigger reflow
+        bar.style.animation = 'shrink 3s linear forwards';
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>
