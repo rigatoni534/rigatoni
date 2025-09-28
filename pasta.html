@@ -10,7 +10,7 @@
       --bg-color: #0e0e0e;
       --card-color: rgba(26, 26, 26, 0.55);
       --text-color: #f0f0f0;
-      --accent: #ff4f4f;
+      --accent: #ffa500;
       --radius: 14px;
     }
 
@@ -91,8 +91,6 @@
       margin: 0.5rem 0;
       font-size: 1.6rem;
       font-family: 'Google Sans', sans-serif;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       padding: 0.3rem 0.6rem;
       border-radius: var(--radius);
     }
@@ -117,7 +115,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 2px solid var(--accent);
-      box-shadow: 0 0 12px var(--accent);
+      box-shadow: 0 0 6px var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -128,7 +126,7 @@
 
     .icon-btn:hover {
       transform: scale(1.12);
-      box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
+      box-shadow: 0 0 12px var(--accent), 0 0 40px var(--accent);
     }
 
     .icon-btn img {
@@ -151,14 +149,10 @@
   </style>
 </head>
 <body>
-  <div class="shape circle"></div>
-  <div class="shape square"></div>
-  <div class="shape triangle"></div>
-
   <div class="card">
     <img src="https://rigatoni534.github.io/rigatoni/rigatoni.png" alt="Profile Picture" class="profile-pic" />
     <h1>rigatoni <span style="color:#888">(534)</span></h1>
-    <p>I do silly little stuff. I felt like being important so I made a page.</p>
+    <p>hi, i'm ri.gatoni and i like graphic design, coding, and physical computing. i would say i'm best at graphic design, arguable though. if you wanna chat or see what's up, click a link below. also, i'm gonna skin you alive, yay!</p>
     <div class="links">
       <button class="icon-btn" onclick="copyUsername('ri.gatoni')" title="Discord">
         <img src="https://rigatoni534.github.io/rigatoni/discord.png"" alt="Discord">
@@ -175,12 +169,12 @@
     </div>
   </div>
 
-  <div class="footer">Github Pages • ri.gatoni • Last Updated: Sept 28, 2025</div>
+  <div class="footer">Github Pages • ri.gatoni • Last Updated: Sept 27, 2025</div>
 
   <script>
     function copyUsername(text) {
       navigator.clipboard.writeText(text).then(() => {
-        alert("Copied: " + text);
+       console.log("tuff")
       });
     }
   </script>
